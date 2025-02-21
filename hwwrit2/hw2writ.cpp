@@ -10,29 +10,66 @@ int fastFind(vector<double> &A, double key) {
         int mid = start + (end - start) / 2;
 
         if (A[mid] == key) {
-            return mid;  // Key found, return index
+            return mid;
         }
         else if (A[mid] < key) {
-            start = mid + 1;  // Move start to mid + 1
+            start = mid + 1;  
         }
         else {
-            end = mid - 1;  // Move end to mid - 1
+            end = mid - 1;  
         }
     }
     
-    return -1;  // Key not found, return -1
+    return -1;  
 }
+
+//missing fastfind
+
+
+class node{
+    public:
+    double data;
+    node * left;
+    node * right;
+    };
+
+    node* buildTree(vector<double> &A, int start, int end){
+        if(end < start){
+            return nullptr;
+        }
+
+        int mid = (start+end)/2;
+
+        node * midnode = new node();
+        midnode->data = A[mid];
+        midnode->left = buildTree(A, start, mid-1);
+        midnode->right = buildTree(A, mid+1, end);
+
+        return midnode;
+    };
+
+
+    void levelOrderTraversal(node * r){
+        if(r == nullptr){
+            return;
+        }
+        
+        cout << (r->data) << endl;
+
+        levelOrderTraversal(r->left);
+        levelOrderTraversal(r->right);
+    };
+
+
 
 int main() {
-    vector<double> A;
-
-    // Populate the vector A with values from 0 to 98
-    for (int i = 0; i < 99; i++) {
-        A.push_back(static_cast<double>(i));  // Explicitly cast to double
-    }
+    vector<double> A = {1.0, 2.5, 3.3, 4.7, 5.9, 6.2, 7.8}; // Explicitly cast to double
+    // }
     
-    // Search for the value 1 and print the result
-    cout << "Index of 1: " << fastFind(A, 1) << endl;
+    // // Search for the value 1 and print the result
+    // cout << "Index of 1: " << fastFind(A, 1) << endl;
 
-    return 0;
+    // return 0;
+    levelOrderTraversal(buildTree(A, 0, 6));
 }
+
