@@ -28,12 +28,12 @@ int fastFind(vector<double> &A, double key) {
 
 class node{
     public:
-    double data;
+    char data;
     node * left;
     node * right;
     };
 
-    node* buildTree(vector<double> &A, int start, int end){
+    node* buildTree(vector<char> &A, int start, int end){
         if(end < start){
             return nullptr;
         }
@@ -42,6 +42,7 @@ class node{
 
         node * midnode = new node();
         midnode->data = A[mid];
+
         midnode->left = buildTree(A, start, mid-1);
         midnode->right = buildTree(A, mid+1, end);
 
@@ -54,22 +55,15 @@ class node{
             return;
         }
         
-        cout << (r->data) << endl;
-
         levelOrderTraversal(r->left);
+        cout << (r->data) << endl;
         levelOrderTraversal(r->right);
     };
 
 
-
 int main() {
-    vector<double> A = {1.0, 2.5, 3.3, 4.7, 5.9, 6.2, 7.8}; // Explicitly cast to double
-    // }
-    
-    // // Search for the value 1 and print the result
-    // cout << "Index of 1: " << fastFind(A, 1) << endl;
+    vector<char> A = {'A', 'B', 'C', 'D', 'E', 'F'}; 
 
-    // return 0;
-    levelOrderTraversal(buildTree(A, 0, 6));
+    levelOrderTraversal(buildTree(A, 0, 5));
 }
 
