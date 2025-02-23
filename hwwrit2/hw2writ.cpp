@@ -1,10 +1,9 @@
 #include <vector>
 #include <iostream>
+#include <queue>
 using namespace std;
 
-int fastFind(vector<double> &A, double key) {
-    int start = 0;
-    int end = A.size() - 1;
+int binarySearch(vector<char> &A, char key, int start, int end) {
 
     while (start <= end) {
         int mid = start + (end - start) / 2;
@@ -23,7 +22,20 @@ int fastFind(vector<double> &A, double key) {
     return -1;  
 }
 
-//missing fastfind
+int fastFind(vector<char> &A, char key){
+    int i=0;
+
+    if(A[0] == key){
+        return 0;
+    }
+
+    while(A[i] =< key && i < A.size()){
+        i = i * 2;
+    }
+
+    return binarySearch(A,key,i/2,i);
+
+}
 
 
 class node{
@@ -50,20 +62,42 @@ class node{
     };
 
 
+    
+
     void levelOrderTraversal(node * r){
         if(r == nullptr){
             return;
         }
         
-        levelOrderTraversal(r->left);
-        cout << (r->data) << endl;
-        levelOrderTraversal(r->right);
+        queue<node *> x;
+        x.push(r);
+
+
+        while(x.empty() != true){
+
+            node * curr = x.front();
+            cout << curr->data << " ";
+            x.pop();
+            
+            if(curr->left != nullptr){
+                x.push(curr->left);
+            }
+
+            if(curr->right != nullptr){
+                x.push(curr->right);
+            }
+
+
+        }
+
     };
 
 
 int main() {
-    vector<char> A = {'A', 'B', 'C', 'D', 'E', 'F'}; 
+    vector<char> A = {'A', 'B', 'C', 'D', 'E', 'F','G'}; 
 
-    levelOrderTraversal(buildTree(A, 0, 5));
+    fastFind(A,2);
+
+    //levelOrderTraversal(buildTree(A, 0, 6));
 }
 
