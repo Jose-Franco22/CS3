@@ -18,8 +18,14 @@ int Autocompleter::size() {
 
 // Fills the vector with the top 3 completions
 void Autocompleter::completions(string x, vector<string> &T) {
-    // Method body
+    completions_recurse(x,root,T)
 }
+
+
+
+
+
+
 
 // static int Autocompleter::height(Node* p)
 // {
@@ -50,20 +56,32 @@ void Autocompleter::insert_recurse(Entry e, Node* &p) {
 
     //
 
-    if(p == nullptr)
-    {
-        Node * temp = new Node(e);
-        
 
-    }
 
     if (e.freq <= p->e.freq)
     {
-        insert_recurse(e,p->left);
+        if(p->left == nullptr)
+        {
+            Node * temp = new Node(e);
+            p->left = temp;
+        }
+        else
+        {
+            insert_recurse(e,p->left);
+        }
     }
     else
     {
-        insert_recurse(e,p->right);
+        if(p->right == nullptr)
+        {
+            Node * temp = new Node(e);
+            p->right = temp;
+        }
+        else
+        {
+            insert_recurse(e,p->right);
+        }
+        
     }
     
 }
