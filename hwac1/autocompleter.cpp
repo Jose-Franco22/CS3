@@ -8,7 +8,11 @@ Autocompleter::Autocompleter() {
 
 // Inserts a string into the dictionary with a given frequency
 void Autocompleter::insert(string x, int freq) {
-    // Method body
+    Entry e;
+    e.freq = freq;
+    e.s = x;
+    
+    insert_recurse(e,root);
 }
 
 // Returns the number of strings in the dictionary
@@ -18,7 +22,7 @@ int Autocompleter::size() {
 
 // Fills the vector with the top 3 completions
 void Autocompleter::completions(string x, vector<string> &T) {
-    completions_recurse(x,root,T)
+    completions_recurse(x,root,T);
 }
 
 
@@ -49,39 +53,23 @@ void Autocompleter::completions_recurse(string x, Node* p, vector<Entry> &C) {
 
 // Inserts an Entry into an AVL tree rooted at p
 void Autocompleter::insert_recurse(Entry e, Node* &p) {
-
-    //make new node if null/at the end
-    
-    //recurse through tree to find where it belongs
-
-    //
-
-
-
-    if (e.freq <= p->e.freq)
-    {
-        if(p->left == nullptr)
-        {
-            Node * temp = new Node(e);
-            p->left = temp;
-        }
-        else
-        {
-            insert_recurse(e,p->left);
-        }
+    if(p == nullptr){
+        p = new Node(e);
     }
-    else
-    {
-        if(p->right == nullptr)
+
+    else{
+        if (e.freq < p->e.freq)
         {
-            Node * temp = new Node(e);
-            p->right = temp;
+            insert_recurse(e,p->left); 
         }
         else
         {
             insert_recurse(e,p->right);
         }
-        
+
+        update_height(p);
+        rebalance(p);
+
     }
     
 }
@@ -93,12 +81,31 @@ void Autocompleter::rebalance(Node* &p) {
 
 // Performs a right rotation on the AVL tree rooted at p
 void Autocompleter::right_rotate(Node* &p) {
-    // Method body
+    node* A = p;
+    node* B = p->left;
+    node* BR = B->right;
+
+    p = B;
+    B->right = A;
+    A->left = BR;
+
+    update_height(A);
+    update_height(B);
+
 }
 
 // Performs a left rotation on the AVL tree rooted at p
 void Autocompleter::left_rotate(Node* &p) {
-    // Method body
+    node* A = p;
+    node* B = p->right;
+    node* BL = B->left;
+
+    p = B;
+    B->left = A;
+    A->right = BL;
+
+    update_height(A);
+    update_height(B);
 }
 
 // // Updates the height of a node
