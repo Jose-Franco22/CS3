@@ -1,4 +1,4 @@
-#include "autocompleter2.h"
+#include "autocompleter.h"
 
 Autocompleter::Autocompleter() {
     root = new Node();
