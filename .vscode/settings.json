@@ -11,6 +11,11 @@
         "deque": "cpp",
         "string": "cpp",
         "vector": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "iosfwd": "cpp",
+        "*.tcc": "cpp",
+        "istream": "cpp",
+        "unordered_set": "cpp",
+        "functional": "cpp"
     }
 }

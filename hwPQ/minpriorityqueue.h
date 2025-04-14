@@ -148,7 +148,7 @@ class MinPriorityQueue
                 swapper(i, smallest);
                 bubbledown(smallest);
             }
-        }
+        }   
 
         };
 
