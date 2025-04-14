@@ -137,10 +137,10 @@ class MinPriorityQueue
             int right = right_C(i);
             int smallest = i;
 
-            if (left < H.size() && H[left].second < H[smallest].second) {
+            if (left < H.size() && H[left].second < H[smallest].second){
                 smallest = left;
             }
-            if (right < H.size() && H[right].second < H[smallest].second) {
+            if (right < H.size() && H[right].second < H[smallest].second){
                 smallest = right;
             }
 

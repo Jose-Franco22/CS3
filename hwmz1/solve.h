@@ -107,7 +107,6 @@ string solve(string maze){
         }
 
         if (exit_found) {
-
             vector<pair<int, int>> path;
             int r = exit_row, c = exit_col;
             while (r != -1 && c != -1) {
